@@ -1,0 +1,10 @@
+{
+  "name": "ADA-FedAvg Research Platform",
+  "short_name": "ADA-FedAvg",
+  "description": "Attack-distribution-aware clustered federated averaging for network intrusion detection",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#B8860B",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

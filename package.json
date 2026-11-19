@@ -1,0 +1,35 @@
+{
+  "name": "ada-fedavg-backend",
+  "version": "1.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch --watch-path=src src/server.js",
+    "setup": "node scripts/setup.mjs",
+    "doctor": "node scripts/doctor.mjs",
+    "dataset": "node scripts/dataset.mjs",
+    "lint": "node scripts/check.mjs",
+    "test": "node --test test/api.test.js test/features.test.js test/datasets.test.js test/studies.test.js test/detect.test.js test/formats.test.js",
+    "test:ml": "node scripts/ml-test.mjs",
+    "verify": "npm run lint && npm test && npm run test:ml",
+    "docker:up": "docker compose up -d --build",
+    "docker:logs": "docker compose logs -f app",
+    "benchmark": "node scripts/benchmark.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.5.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "nodemailer": "^6.10.1",
+    "zod": "^3.23.8"
+  },
+  "description": "ADA-FedAvg research platform: Express + SQLite API, numpy training worker and web UI",
+  "engines": {
+    "node": ">=20"
+  }
+}

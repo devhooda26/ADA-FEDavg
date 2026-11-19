@@ -1,0 +1,10 @@
+node_modules
+.env
+data/*.db*
+.venv
+__pycache__
+data/nsl-kdd
+data/uploads
+*.log
+.DS_Store
+data/models

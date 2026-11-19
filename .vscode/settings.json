@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": { "**/__pycache__": true, "**/.venv": true },
+  "search.exclude": { "**/node_modules": true, "data/uploads": true, "data/*.db*": true, "**/.venv": true },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "npm.autoDetect": "on",
+  "debug.node.autoAttach": "disabled",
+  "python.terminal.useEnvFile": true
+}

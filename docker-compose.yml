@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DB_PATH: /app/data/app.db
+      PYTHON: /opt/venv/bin/python   # overrides any host path that `npm run setup` wrote into .env
+      HOST: 0.0.0.0
+      PORT: "4000"
+    volumes:
+      - ada-data:/app/data          # database + NSL-KDD live here and survive rebuilds
+    restart: unless-stopped
+    expose: ["4000"]
+  caddy:                            # automatic HTTPS (Let's Encrypt) in front of the app
+    image: caddy:2
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    depends_on: [app]
+    restart: unless-stopped
+volumes:
+  ada-data:
+  caddy-data:

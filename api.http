@@ -1,0 +1,33 @@
+### Smoke-test the API from VS Code (install the "REST Client" extension, click "Send Request")
+@base = http://localhost:4000
+
+### Health (public)
+GET {{base}}/api/health
+
+### Paper summary (public)
+GET {{base}}/api/paper/summary
+
+### Sign in (the cookie is kept for the requests below)
+# @name login
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@example.com", "password": "PUT-YOUR-ADMIN-PASSWORD-HERE" }
+
+### List experiments (needs sign-in above)
+GET {{base}}/api/experiments?limit=5
+
+### Detect: which trained models can score records?
+GET {{base}}/api/models
+
+### Detect: the input fields of model 1
+GET {{base}}/api/models/1/schema
+
+### Detect: score records (values may be numbers or strings; missing numeric fields use the training average)
+POST {{base}}/api/detect
+Content-Type: application/json
+
+{ "modelId": 1, "records": [ { "duration": 0, "protocol_type": "tcp", "service": "http", "flag": "SF", "src_bytes": 232, "dst_bytes": 8153 } ] }
+
+### Detect: your recent analyses (counts only)
+GET {{base}}/api/detect/history

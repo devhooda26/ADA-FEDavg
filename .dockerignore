@@ -1,0 +1,14 @@
+node_modules
+.env
+.git
+data/*.db*
+data/nsl-kdd
+ml/__pycache__
+*.zip
+.venv
+.vscode
+.devcontainer
+.github
+data/uploads
+node_modules/.cache
+api.http

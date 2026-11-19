@@ -1,0 +1,43 @@
+{
+  "intro": "Ten criticisms were raised about the evidence behind ADA-FedAvg. This page says what this platform provides for each, and, just as importantly, what it cannot fix.",
+  "items": [
+    { "title": "Statistical power: one seed, no confidence intervals, U2R has only 67 test rows",
+      "provides": ["Studies run each variant over 2–20 seeds; the seed changes both the data partition and the model initialisation.", "Mean ± sd, 95% t-intervals and paired differences against FedAvg (matched by seed).", "Per-class F1 shows how much of macro-F1 comes from the rare U2R class."],
+      "limits": "Intervals are only as good as the seed count (use 10+). No multiple-comparison correction. U2R support is a property of KDDTest+, so read weighted metrics and per-class results next to macro-F1.", "route": "studies" },
+    { "title": "Is clustering the cause? Missing ablations",
+      "provides": ["Full-ablation preset: ADA with K = N (uniform client weights), random clusters of the same sizes, K = 2…8, and local class-weighted loss on/off. K = 1 is FedAvg."],
+      "limits": "Pairing is by seed, so use the same seeds across variants (the presets do).", "route": "studies" },
+    { "title": "Missing baselines",
+      "provides": ["FedProx, IFCA (clustered FL) and FedAvg with a global class-balanced loss (weights = balanced^0.5 by default, adjustable)."],
+      "limits": "SCAFFOLD and CFL are not implemented. FedProx and IFCA are simplified: Adam local optimiser, and IFCA is scored with its best-by-validation cluster model, which is not how IFCA is normally evaluated. Astraea, FedLC and FedNova are not implemented.", "route": "studies" },
+    { "title": "The mechanism claim is unsupported",
+      "provides": ["Each experiment page shows per-class precision/recall/F1, the confusion matrix, false-alarm rate, attack-detection rate, cluster membership, cluster sizes and the true class mix of each cluster."],
+      "limits": "A single run is an illustration, not evidence. Use a study before claiming a mechanism.", "route": "experiments" },
+    { "title": "Does the clustering signal capture rare classes?",
+      "provides": ["The cluster class-mix table shows whether clusters track the benign/DoS ratio or rare-attack presence.", "Alternative distances (log-scaled, inverse-frequency) can be compared in the ablation preset."],
+      "limits": "Whether they help is an empirical question that the study answers. Do not assume it.", "route": "studies" },
+    { "title": "The centralized “upper bound” is not one",
+      "provides": ["Centralized runs use the same number of epochs as federated rounds (same sample passes), optionally with the same class-balanced loss, and appear in the Core comparison and Full ablation presets."],
+      "limits": "The paper’s tuning of the centralized model is not recoverable. State its epochs, loss and optimiser.", "route": "studies" },
+    { "title": "Communication and privacy claims are inconsistent",
+      "provides": ["Results report summary bytes (the one-time histogram: clients × classes × 4).", "Studies report rounds-to-target and mean ± sd convergence curves instead of an identical-by-construction byte count.", "The Privacy page states exactly what is exchanged."],
+      "limits": "Needs the authors. The abstract’s “without adding a single byte” and the title word “Privacy-Preserving” must change (for example “Privacy-Aware”), or differential privacy / secure aggregation must be added. This platform implements neither.", "route": "privacy", "authors": true },
+    { "title": "Robustness: a Sybil client can take a third of the global model",
+      "provides": ["Robustness preset: one simulated client flips labels and reports a fake histogram, comparing FedAvg, ADA and ADA with bounded cluster weights (blend: 0 = paper, 1 = FedAvg)."],
+      "limits": "A toy attack model with one attack type and no formal analysis.", "route": "studies" },
+    { "title": "Novelty, positioning and theory",
+      "provides": [],
+      "limits": "Needs the authors. Related-work positioning (Astraea, FedLC, FedNova, IFCA) and any theory, such as when equal cluster weights approximate a class-balanced objective, are not something software can supply. Verify every citation yourself.", "authors": true },
+    { "title": "Narrow experimental scope",
+      "provides": ["KDDTest-21, known-versus-novel attack detection (3,750 test records are attack types unseen in training), quantity skew, synthetic feature shift, up to 50 clients, and CSV upload with label mapping for other datasets."],
+      "limits": "CIC-IDS2017 and FLNet2023 are not bundled; upload sampled CSVs and map their labels. The numpy trainer is slow beyond a few hundred thousand rows. Feature shift is simulated, not real organisational shift.", "route": "datasets" }
+  ],
+  "protocol": [
+    "Run Core comparison and Full ablation at all three skew levels with at least 10 seeds.",
+    "Read the paired-difference table first: claim an effect only if the interval excludes 0 and the per-class table agrees.",
+    "Check ADA against random clusters and against FedAvg with class-balanced loss. If either matches ADA, the gain is reweighting, not clustering, and the paper should say so.",
+    "Report Test-21 and novel-attack results next to KDDTest+.",
+    "Export tables with the CSV / LaTeX buttons."
+  ],
+  "caveat": "Single-seed development runs (30 rounds, moderate skew) gave FedAvg macro-F1 0.488 and ADA-FedAvg 0.468, against the paper’s 0.516 and 0.604. One seed each proves nothing either way; it is the reason to run studies before drawing conclusions."
+}
