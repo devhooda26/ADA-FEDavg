@@ -119,3 +119,4 @@ bcrypt, hashed server-side sessions, lockout after 5 failures, rate limits, zod 
 
 ## Known limitations
 Single runs have one seed; use Studies for confidence intervals (no multiple-comparison correction). SCAFFOLD and CFL are not implemented; FedProx and IFCA are simplified. Reproduction of the paper's gains is not guaranteed: the paper does not fix every training hyper-parameter (local epochs, learning rate, batch size), so defaults here (Adam 1e-3, batch 256, 1 local epoch, dropout 0.3) are our choice. Communication volume counts all weights and BatchNorm statistics, upload plus download, so it will not match the paper's figure. No differential privacy or secure aggregation. SQLite and a single worker suit a lab server, not large scale.
+# ADA-FEDavg
